@@ -4,8 +4,8 @@ import { useNavigate } from 'react-router-dom'
 import Card from './Card'
 export default function Main() {
 
-    const [IngrediantData, setIngrediant] = useState([])
-    const [id, setId] = useState("")
+    const [storeData, setStoreData] = useState([])
+    const [storeId, setStoreId] = useState("")
     let param = ""
 
 
@@ -19,29 +19,29 @@ export default function Main() {
             method: 'GET',
             redirect: 'follow'
         };
-        let fetch_string = id === null ? "https://localhost:44329/api/Ingrediant/" :
-            `https://localhost:44329/api/Ingrediant/${id}`
+        let fetch_string = id === null ? "http://localhost:8080/store/" :
+            `http://localhost:8080/store/${id}`
 
 
         await fetch(fetch_string, requestOptions)
             .then(response => response.text())
-            .then(result => { JSON.parse(result) === null || id === "" ? setIngrediant([]) : setIngrediant(JSON.parse(result)) })
+            .then(result => { JSON.parse(result) === null || id === "" ? setStoreData([]) : setStoreData(JSON.parse(result)) })
             .catch(error => console.log('error', error));
     }
 
 
 
 
-    const dealWithIngrediant = (param) => {
+    const dealWithStore = (param) => {
         console.log(param)
         if (param === "add") {
-            navigate('/IngrediantCard', { state: "add" })
+            navigate('/StoreCard', { state: "add" })
         }
         else if (param === "edit") {
-            navigate('/IngrediantCard', { state: "edit" })
+            navigate('/StoreCard', { state: "edit" })
         }
         else {
-            navigate('/DeleteIngrediant')
+            navigate('/DeleteStore')
         }
 
 
@@ -52,21 +52,21 @@ export default function Main() {
 
     return (
         < div className="app">
-            <p>Ingrediant List</p>
-            <button onClick={() => getAllData(id)}>Get By ID</button>  <input onChange={e => setId(e.target.value)}></input>
+            <p>Stores List</p>
+            <button onClick={() => getAllData(storeId)}>Get By ID</button>  <input onChange={e => setStoreId(e.target.value)}></input>
             <br />
             <button onClick={() => getAllData()}>Get All</button>
             <br />
-            <button onClick={() => dealWithIngrediant(param = "add")}>Add Ingrediant</button>
+            <button onClick={() => dealWithStore(param = "add")}>Add Store</button>
             <br />
-            <button onClick={() => dealWithIngrediant(param = "edit")}>Edit Ingrediant</button>
+            <button onClick={() => dealWithStore(param = "edit")}>Edit Store</button>
             <br />
-            <button onClick={() => dealWithIngrediant(param = "delete")}>Delete By Id</button>
+            <button onClick={() => dealWithStore(param = "delete")}>Delete By Id</button>
 
             <div className='list_container'>
-                {IngrediantData.length !== undefined && IngrediantData.length > 1 ?
-                    IngrediantData.map((Ingrediant, index) => <Card key={index} IngrediantData={Ingrediant} />) : IngrediantData.length !== 0 ?
-                        < Card IngrediantData={IngrediantData} /> : null}
+                {storeData.length !== undefined && storeData.length > 1 ?
+                    storeData.map((store, index) => <Card key={index} StoreData={store} />) : storeData.length !== 0 ?
+                        < Card StoreData={storeData[0]} /> : null}
             </div>
         </div >
     )
