@@ -9,7 +9,7 @@ export default function DeleteIngrediant() {
             redirect: 'follow'
         };
 
-        fetch(`http://localhost:8080/store/${storeid}`, requestOptions)
+        fetch(`https://store-api-managment.herokuapp.com/store/${storeid}`, requestOptions)
             .then(response => response.text())
             .then(result => console.log(result))
             .catch(error => console.log('error', error));

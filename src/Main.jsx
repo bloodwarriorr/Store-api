@@ -7,7 +7,7 @@ export default function Main() {
     const [storeData, setStoreData] = useState([])
     const [storeId, setStoreId] = useState("")
     let param = ""
-
+    const port=process.env.PORT
 
 
     const navigate = useNavigate()
@@ -19,8 +19,8 @@ export default function Main() {
             method: 'GET',
             redirect: 'follow'
         };
-        let fetch_string = id === null ? "http://localhost:8080/store/" :
-            `http://localhost:8080/store/${id}`
+        let fetch_string = id === null ? "https://store-api-managment.herokuapp.com/store/" :
+            `https://store-api-managment.herokuapp.com/store/${id}`
 
 
         await fetch(fetch_string, requestOptions)

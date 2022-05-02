@@ -27,7 +27,7 @@ export default function StoreCard() {
       redirect: 'follow'
     };
 
-    fetch("http://localhost:8080/store/", requestOptions)
+    fetch("https://store-api-managment.herokuapp.com/store/", requestOptions)
       .then(response => response.text())
       .then(result => console.log(result))
       .catch(error => console.log('error', error));
